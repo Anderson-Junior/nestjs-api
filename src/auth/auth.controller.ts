@@ -18,6 +18,7 @@ import { writeFile } from 'fs';
 import { join } from 'path';
 import { UserService } from 'src/user/user.service';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { User } from 'src/decorators/user.decorator';
 
 @Controller('auth')
 export class AuthCrontoller {
@@ -45,8 +46,8 @@ export class AuthCrontoller {
 
   @UseGuards(AuthGuard)
   @Post('me')
-  async me(@Req() req) {
-    return {me: 'ok', data: req.tokenPayload}
+  async me(@User() user) {
+    return {user}
   }
 
   //   @UseInterceptors(FileInterceptor('file'))

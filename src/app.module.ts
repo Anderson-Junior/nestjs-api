@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -8,8 +8,8 @@ import { UserEntity } from './user/entity/user.entity';
 
 @Module({
   imports: [
-    UserModule,
-    AuthModule,
+    forwardRef(() => UserModule),
+    forwardRef(() => AuthModule),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -19,7 +19,7 @@ import { UserEntity } from './user/entity/user.entity';
       database: 'api-hcode',
       entities: [UserEntity],
       synchronize: true,
-      logging: true, // <--- Ativa o modo de depuração
+      // logging: true, // <--- Ativa o modo de depuração
     }),
   ],
   controllers: [AppController],

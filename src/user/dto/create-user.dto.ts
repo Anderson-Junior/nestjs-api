@@ -1,4 +1,5 @@
-import { IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { Role } from 'src/enums/role.enum';
 
 export class CreateUserDTO {
   @IsString()
@@ -19,5 +20,7 @@ export class CreateUserDTO {
 
   updated_at: string
 
+  @IsOptional()
+  @IsEnum(Role)
   role: number
 }

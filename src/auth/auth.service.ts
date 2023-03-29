@@ -6,6 +6,7 @@ import { UserEntity } from 'src/user/entity/user.entity';
 import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { AuthRegisterDto } from './dto/auth-register.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -66,11 +67,11 @@ export class AuthService {
         throw new UnauthorizedException('E-mail e/ou senha incorretos.');
       }
 
-      // if(! await bcript.compare(password, (await user).password)){
-      //   throw new UnauthorizedException('E-mail e/ou senha incorretos.');
-      // }
+      if(! await bcrypt.compare(password, user.password)){
+        throw new UnauthorizedException('E-mail e/ou senha incorretos.');
+      }
 
-      return await this.createToken(user);
+      return this.createToken(user);
   }
 
   async forget(email: string) {

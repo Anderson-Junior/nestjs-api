@@ -15,7 +15,8 @@ import { UserService } from './user.service';
 @Module({
   imports: [
     forwardRef(() => AuthModule),
-    TypeOrmModule.forFeature([UserEntity])
+    TypeOrmModule.forFeature([UserEntity]),
+    forwardRef(() => AuthModule)
   ],
   exports: [
     UserService
